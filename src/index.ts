@@ -1,6 +1,7 @@
 import os from "os";
 import cluster from "cluster";
 import express from "express";
+import { randomInt } from "crypto";
 
 console.log(os.cpus().length);
 
@@ -26,10 +27,6 @@ if (cluster.isPrimary) {
 
   app.get("/", (req, res) => {
     if (cluster?.worker?.id === 2) {
-      //   let i = 1;
-      //   while (i < 100000000000) {
-      //     i += 1;
-      //   }
       const loadStartTime = Date.now();
       const loadDuration = 10000; // 10 seconds
       console.log(`Mimicing heaby load for ${loadDuration / 1000} seconds`);
@@ -37,17 +34,13 @@ if (cluster.isPrimary) {
         // Busy-wait for 10 seconds
         continue;
       }
-      // const loadStartTime = Date.now();
-      // const loadDuration = 10000; // 10 seconds
-
-      // while (Date.now() - loadStartTime < loadDuration) {
-      //   // Busy-wait for 10 seconds
-      //   continue;
-      // }
-
       console.log(`Worker ${process.pid} finished simulating load`);
     }
     return res.json({ msg: `Handled by process ${process.pid}` });
+  });
+
+  app.get("/random", (req, res) => {
+    return res.json({ msg: randomInt(100) });
   });
 
   app.listen(8080, () => {
