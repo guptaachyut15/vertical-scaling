@@ -34,13 +34,9 @@ if (cluster.isPrimary) {
         // Busy-wait for 10 seconds
         continue;
       }
-      console.log(`Worker ${process.pid} finished simulating load`);
+      // console.log(`Worker ${process.pid} finished simulating load`);
     }
     return res.json({ msg: `Handled by process ${process.pid}` });
-  });
-
-  app.get("/random", (req, res) => {
-    return res.json({ msg: randomInt(100) });
   });
 
   app.listen(8080, () => {
