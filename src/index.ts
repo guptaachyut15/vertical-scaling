@@ -32,7 +32,7 @@ if (cluster.isPrimary) {
       //   }
       const loadStartTime = Date.now();
       const loadDuration = 10000; // 10 seconds
-
+      console.log(`Mimicing heaby load for ${loadDuration / 1000} seconds`);
       while (Date.now() - loadStartTime < loadDuration) {
         // Busy-wait for 10 seconds
         continue;
