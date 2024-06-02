@@ -26,9 +26,16 @@ if (cluster.isPrimary) {
 
   app.get("/", (req, res) => {
     if (cluster?.worker?.id === 2) {
-      let i = 1;
-      while (i < 100000000000) {
-        i += 1;
+      //   let i = 1;
+      //   while (i < 100000000000) {
+      //     i += 1;
+      //   }
+      const loadStartTime = Date.now();
+      const loadDuration = 10000; // 10 seconds
+      console.log(`Mimicing heaby load for ${loadDuration / 1000} seconds`);
+      while (Date.now() - loadStartTime < loadDuration) {
+        // Busy-wait for 10 seconds
+        continue;
       }
       // const loadStartTime = Date.now();
       // const loadDuration = 10000; // 10 seconds
